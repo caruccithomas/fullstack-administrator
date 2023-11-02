@@ -18,10 +18,10 @@ class CustomerRowMapperTest {
 
         ResultSet resultSet = mock(ResultSet.class);
         when(resultSet.getInt("id")).thenReturn(1);
-        when(resultSet.getInt("age")).thenReturn(21);
+        when(resultSet.getInt("age")).thenReturn(19);
         when(resultSet.getString("name")).thenReturn("Jamila");
         when(resultSet.getString("email")).thenReturn("jamila@gmail.com");
-        when(resultSet.getString("gender")).thenReturn("Femenino");
+        when(resultSet.getString("gender")).thenReturn("FEMALE");
         when(resultSet.getString("password")).thenReturn("password");
         when(resultSet.getString("profile_image_id")).thenReturn("22222");
 
@@ -35,8 +35,8 @@ class CustomerRowMapperTest {
                 "Jamila",
                 "jamila@gmail.com",
                 "password",
-                21,
-                Gender.Femenino,
+                19,
+                Gender.FEMALE,
                 "22222"
         );
         assertThat(actual).isEqualTo(expected);

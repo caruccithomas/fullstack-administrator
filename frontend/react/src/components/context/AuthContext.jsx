@@ -4,7 +4,7 @@ import {
     useEffect,
     useState
 } from "react";
-import {getCustomers, login as performLogin} from "../../services/client.js";
+import {login as performLogin} from "../../services/client.js";
 import jwtDecode from "jwt-decode";
 
 const AuthContext = createContext({});
@@ -18,12 +18,12 @@ const AuthProvider = ({ children }) => {
         if (token) {
             token = jwtDecode(token);
             setCustomer({
-                id: token.userId,
                 username: token.sub,
                 roles: token.scopes
             })
         }
     }
+
     useEffect(() => {
         setCustomerFromToken()
     }, [])
@@ -34,14 +34,15 @@ const AuthProvider = ({ children }) => {
             performLogin(usernameAndPassword).then(res => {
                 const jwtToken = res.headers["authorization"];
                 localStorage.setItem("access_token", jwtToken);
+                console.log(localStorage.getItem("access_token"));
 
                 const decodedToken = jwtDecode(jwtToken);
 
                 setCustomer({
-                    
                     username: decodedToken.sub,
                     roles: decodedToken.scopes
                 })
+
                 resolve(res);
             }).catch(err => {
                 reject(err);

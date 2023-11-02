@@ -1,4 +1,4 @@
-import { Container, Image, Stack } from "@chakra-ui/react";
+import { Box, Container, Image, Stack, Wrap } from "@chakra-ui/react";
 import React, { Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -34,7 +34,6 @@ export default class SimpleSlider extends Component {
                   <Image
                     id={item.id}
                     alt={item.alt}
-                    objectFit={item.objectFit}
                     src={item.src}
                   />
                   <h1 className="slider-title">{item.title}</h1>

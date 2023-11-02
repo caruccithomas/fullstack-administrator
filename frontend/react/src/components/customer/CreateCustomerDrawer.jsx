@@ -1,6 +1,5 @@
 import {
     Button,
-    Container,
     Drawer,
     DrawerBody,
     DrawerCloseButton,
@@ -8,7 +7,6 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    Wrap,
     useDisclosure
 } from "@chakra-ui/react";
 import CreateCustomerForm from "../shared/CreateCustomerForm.jsx";

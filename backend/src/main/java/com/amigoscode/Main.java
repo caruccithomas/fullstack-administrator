@@ -9,17 +9,13 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Random;
-import java.util.UUID;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 public class Main {
 
     public static void main(String[] args) {
@@ -40,16 +36,16 @@ public class Main {
                                                     S3Buckets s3Buckets) {
         s3Service.putObject(
                 s3Buckets.getCustomer(),
-                "foo/bar/james",
+                "foo/bar/jamila",
                 "Hello World".getBytes()
         );
 
         byte[] obj = s3Service.getObject(
                 s3Buckets.getCustomer(),
-                "foo/bar/james"
+                "foo/bar/jamila"
         );
 
-        System.out.println("Archivo de S3 Bucket: " + new String(obj));
+        System.out.println("Hooray: " + new String(obj));
     }
 
     private static void createRandomCustomer(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
@@ -59,8 +55,8 @@ public class Main {
         String firstName = name.firstName();
         String lastName = name.lastName();
         int age = random.nextInt(16, 99);
-        Gender gender = age % 2 == 0 ? Gender.Masculino : Gender.Femenino;
-        String email = firstName.toLowerCase() + "-" + lastName.toLowerCase() + "@gmail.com";
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
+        String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@gmail.com";
         Customer customer = new Customer(
                 firstName +  " " + lastName,
                 email,

@@ -71,7 +71,7 @@ const CreateCustomerForm = ({ onSuccess }) => {
                         .required('La contraseña es requerida'),
                     gender: Yup.string()
                         .oneOf(
-                            ['Masculino', 'Femenino'],
+                            ['MALE', 'FEMALE'],
                             'El género utilizado no está disponible'
                         )
                         .required('El género es requerido'),
@@ -111,7 +111,7 @@ const CreateCustomerForm = ({ onSuccess }) => {
                                 label="Correo electrónico"
                                 name="email"
                                 type="email"
-                                placeholder="nombre-apellido@gmail.com"
+                                placeholder="nombre.apellido@gmail.com"
                             />
 
                             <MyTextInput
@@ -130,8 +130,8 @@ const CreateCustomerForm = ({ onSuccess }) => {
 
                             <MySelect label="Género" name="gender">
                                 <option value="">Selecciona una opción</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
+                                <option value="MALE">Masculino</option>
+                                <option value="FEMALE">Femenino</option>
                             </MySelect>
 
                             <Button disabled={!isValid || isSubmitting} type="submit">Enviar</Button>

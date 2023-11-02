@@ -22,7 +22,7 @@ import UpdateCustomerDrawer from "./UpdateCustomerDrawer.jsx";
 import { MdDelete } from 'react-icons/md';
 
 export default function CardWithImage({id, name, email, age, gender, imageNumber, fetchCustomers}) {
-    const randomUserGender = gender === "Masculino" ? "masculino" : "femenino";
+    const randomUserGender = gender === "MALE" ? "men" : "women";
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
@@ -48,7 +48,7 @@ export default function CardWithImage({id, name, email, age, gender, imageNumber
                     size={'xl'}
                     src={
                         customerProfilePictureUrl(id)
-                        // Generate random profile picture: `https://randomuser.me/api/portraits/${gender}/${imageNumber}.jpg`
+                        // `https://randomuser.me/api/portraits/${gender}/${imageNumber}.jpg`
                     }
                     alt={'profile image'}
                     shadow={'xl'}
@@ -78,7 +78,8 @@ export default function CardWithImage({id, name, email, age, gender, imageNumber
                         fontSize={'15px'}
                         shadow={'md'}
                         _hover={{
-                            color: 'red'
+                            color: 'red',
+                            transform: 'scale(0.9)'
                         }}
                         onClick={onOpen}
                         columnGap={1}

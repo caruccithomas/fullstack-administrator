@@ -30,7 +30,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID(),
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
         underTest.insertCustomer(customer);
 
         // When
@@ -48,7 +48,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -92,7 +92,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 name,
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -123,7 +123,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -161,7 +161,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -188,7 +188,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -227,7 +227,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -238,7 +238,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 .findFirst()
                 .orElseThrow();
 
-        var newEmail = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();;
+        var newEmail = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
 
         // When email is changed
         Customer update = new Customer();
@@ -266,7 +266,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -305,7 +305,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -331,7 +331,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
 
         assertThat(actual).isPresent().hasValueSatisfying(updated -> {
             assertThat(updated.getId()).isEqualTo(id);
-            assertThat(updated.getGender()).isEqualTo(Gender.Masculino);
+            assertThat(updated.getGender()).isEqualTo(Gender.MALE);
             assertThat(updated.getName()).isEqualTo("foo");
             assertThat(updated.getEmail()).isEqualTo(newEmail);
             assertThat(updated.getAge()).isEqualTo(22);
@@ -346,7 +346,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -382,7 +382,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 FAKER.name().fullName(),
                 email,
                 "password", 20,
-                Gender.Masculino);
+                Gender.MALE);
 
         underTest.insertCustomer(customer);
 
@@ -394,14 +394,14 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
                 .orElseThrow();
 
         // When
-        underTest.updateCustomerProfileImageId("22222", id);
+        underTest.updateCustomerProfileImageId("2222", id);
 
         // Then
         Optional<Customer> customerOptional = underTest.selectCustomerById(id);
         assertThat(customerOptional)
                 .isPresent()
                 .hasValueSatisfying(
-                        c -> assertThat(c.getProfileImageId()).isEqualTo("22222")
+                        c -> assertThat(c.getProfileImageId()).isEqualTo("2222")
                 );
     }
 }

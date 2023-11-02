@@ -21,7 +21,7 @@ public class CustomerListDataAccessService implements CustomerDao {
                 "alex@gmail.com",
                 "password",
                 21,
-                Gender.Masculino);
+                Gender.MALE);
         customers.add(alex);
 
         Customer jamila = new Customer(
@@ -29,8 +29,8 @@ public class CustomerListDataAccessService implements CustomerDao {
                 "Jamila",
                 "jamila@gmail.com",
                 "password",
-                21,
-                Gender.Femenino);
+                19,
+                Gender.MALE);
         customers.add(jamila);
     }
 
@@ -85,8 +85,7 @@ public class CustomerListDataAccessService implements CustomerDao {
 
     @Override
     public void updateCustomerProfileImageId(String profileImageId, Integer customerId) {
-
-        // TODO: Implementar luego
+        // TODO: Implement
     }
 
 }

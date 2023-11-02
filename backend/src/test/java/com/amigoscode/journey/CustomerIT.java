@@ -19,6 +19,7 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -40,10 +41,10 @@ public class CustomerIT {
         Name fakerName = faker.name();
 
         String name = fakerName.fullName();
-        String email = fakerName.firstName().toLowerCase() + "-" + fakerName.lastName().toLowerCase() + "@gmail.com";
-        int age = RANDOM.nextInt(16, 100);
+        String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
+        int age = RANDOM.nextInt(1, 100);
 
-        Gender gender = age % 2 == 0 ? Gender.Masculino : Gender.Femenino;
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name, email, "password", age, gender
@@ -88,7 +89,7 @@ public class CustomerIT {
                 email,
                 gender,
                 age,
-                List.of("Administrador"),
+                List.of("ROLE_USER"),
                 email,
                 null
         );
@@ -115,17 +116,17 @@ public class CustomerIT {
         Name fakerName = faker.name();
 
         String name = fakerName.fullName();
-        String email = fakerName.firstName().toLowerCase() + "-" + fakerName.lastName().toLowerCase() + "@gmail.com";
-        int age = RANDOM.nextInt(16, 100);
+        String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
+        int age = RANDOM.nextInt(1, 100);
 
-        Gender gender = age % 2 == 0 ? Gender.Masculino : Gender.Femenino;
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name, email, "password", age, gender
         );
 
         CustomerRegistrationRequest request2 = new CustomerRegistrationRequest(
-                name, email + ".uy", "password", age, gender
+                name, email + ".uk", "password", age, gender
         );
 
         // send a post request to create customer 1
@@ -198,10 +199,10 @@ public class CustomerIT {
         Name fakerName = faker.name();
 
         String name = fakerName.fullName();
-        String email = fakerName.firstName().toLowerCase() + "-" + fakerName.lastName().toLowerCase() + "@gmail.com";
-        int age = RANDOM.nextInt(16, 100);
+        String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
+        int age = RANDOM.nextInt(1, 100);
 
-        Gender gender = age % 2 == 0 ? Gender.Masculino : Gender.Femenino;
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name, email, "password", age, gender
@@ -277,7 +278,7 @@ public class CustomerIT {
                 email,
                 gender,
                 age,
-                List.of("Administrador"),
+                List.of("ROLE_USER"),
                 email,
                 null
         );
@@ -292,10 +293,10 @@ public class CustomerIT {
         Name fakerName = faker.name();
 
         String name = fakerName.fullName();
-        String email = fakerName.firstName().toLowerCase() + "-" + fakerName.lastName().toLowerCase() + "@gmail.com";
-        int age = RANDOM.nextInt(16, 100);
+        String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
+        int age = RANDOM.nextInt(1, 100);
 
-        Gender gender = age % 2 == 0 ? Gender.Masculino : Gender.Femenino;
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name, email, "password", age, gender

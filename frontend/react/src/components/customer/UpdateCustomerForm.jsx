@@ -57,8 +57,8 @@ const MyDropzone = ({ customerId, fetchCustomers }) => {
         <input {...getInputProps()} />
         {
           isDragActive ?
-            <p>¡Suelta una imagen JPEG ó JPG aquí!</p> :
-            <p>Arrastra y suelta una imagen JPEG ó JPG aquí, o selecciona alguna desde el explorador de archivos</p>
+            <p>¡Suelta la imagen aquí!</p> :
+            <p>Arrastra y suelta una imagen aquí, o selecciona alguna desde el explorador de archivos</p>
         }
       </Box>
     )

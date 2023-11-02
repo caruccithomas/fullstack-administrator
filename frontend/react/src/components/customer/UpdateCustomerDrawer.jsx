@@ -9,12 +9,10 @@ import {
     DrawerHeader,
     DrawerOverlay,
     useDisclosure,
-    Wrap
+    Wrap,
 } from "@chakra-ui/react";
 import UpdateCustomerForm from "./UpdateCustomerForm.jsx";
 import { MdEditNote } from "react-icons/md";
-
-const CloseIcon = () => "x";
 
 const UpdateCustomerDrawer = ({ fetchCustomers, initialValues, customerId }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -23,7 +21,8 @@ const UpdateCustomerDrawer = ({ fetchCustomers, initialValues, customerId }) => 
             fontSize={'15px'}
             shadow={'md'}
             _hover={{
-                color: 'green'
+                color: '#0d8ef2',
+                transform: 'scale(0.9)'
             }}
             onClick={onOpen}
             columnGap={1}

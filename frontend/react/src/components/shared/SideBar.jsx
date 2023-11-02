@@ -19,10 +19,8 @@ import {
     useColorModeValue,
     useDisclosure,
     VStack,
-    Image,
     Container,
-    Divider,
-    border
+    Image
 } from '@chakra-ui/react';
 
 import {
@@ -90,6 +88,7 @@ const SidebarContent = ({onClose, ...rest}) => {
                     <Image
                         maxW={"140px"}
                         boxSize='s'
+                        borderRadius='none'
                         src='https://i.ibb.co/8Kpf9BP/logo.png'
                         alt='icon'
                     />
@@ -139,6 +138,7 @@ const NavItem = ({icon, route, children, ...rest}) => {
 
 const MobileNav = ({onOpen, ...rest}) => {
     const { logOut, customer } = useAuth()
+    console.log(customer)
 
     return (
         <Flex
@@ -177,14 +177,15 @@ const MobileNav = ({onOpen, ...rest}) => {
                                         </Text>
                                     ))}
                                 </VStack>
-                                <Avatar size={'sm'} src={''} />
+                                {/* <Avatar size={'sm'} src={customerProfilePictureUrl(id)} /> */}
                             </HStack>
                         </MenuButton>
                         <MenuList
                             bg={useColorModeValue('white', 'gray.900')}
-                            borderColor={useColorModeValue('gray.200', 'gray.700')}>
+                            borderColor={useColorModeValue('gray.200', 'gray.700')}
+                        >
                             <MenuItem>Visualizar</MenuItem>
-                            <MenuItem>Modificar perfil</MenuItem>
+                            <MenuItem>Editar</MenuItem>
                             <MenuDivider/>
                             <MenuItem onClick={logOut}>
                                 Cerrar sesión

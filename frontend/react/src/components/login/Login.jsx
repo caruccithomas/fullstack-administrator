@@ -105,7 +105,7 @@ const LoginForm = () => {
 const Login = () => {
     const { customer } = useAuth();
     const navigate = useNavigate();
-    const [isTablet] = useMediaQuery("(max-width: 992px)");
+    // const [ isTablet ] = useMediaQuery("(max-width: 992px)");
 
     useEffect(() => {
         if (customer) {
@@ -114,11 +114,10 @@ const Login = () => {
     })
 
     return (
-        <Stack direction={{base: 'column', lg: 'row'}}>
+        <Stack direction={{base: 'column', lg: 'row'}} h="100vh">
             <Flex p={10} flex={1}>
                 <Stack
                     w={'full'}
-                    minH={isTablet ? "100vh" : "100%"}
                     spacing={10}
                     display={"flex"}
                     alignItems={"center"}
@@ -146,12 +145,7 @@ const Login = () => {
                     </div>
                 </Stack>
             </Flex>
-            <Flex
-                flex={1}
-                p={10}
-                bgGradient={'linear(to-r, blue.600, cyan.400)'}
-                minH={"100vh"}
-            >
+            <Flex flex={1} p={10} bgGradient={'linear(to-r, blue.600, cyan.400)'}>
                 <Stack
                     w={'full'}
                     m={"auto 0"}

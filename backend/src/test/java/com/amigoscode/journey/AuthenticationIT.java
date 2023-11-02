@@ -40,16 +40,15 @@ public class AuthenticationIT {
     @Test
     void canLogin() {
         // Given
-
-        // create registration customerRegistrationRequest
+// create registration customerRegistrationRequest
         Faker faker = new Faker();
         Name fakerName = faker.name();
 
         String name = fakerName.fullName();
-        String email = fakerName.firstName().toLowerCase() + "-" + fakerName.lastName().toLowerCase() + "@gmail.com";
-        int age = RANDOM.nextInt(16, 100);
+        String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
+        int age = RANDOM.nextInt(1, 100);
 
-        Gender gender = age % 2 == 0 ? Gender.Masculino : Gender.Femenino;
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         String password = "password";
 
@@ -113,7 +112,7 @@ public class AuthenticationIT {
         assertThat(customerDTO.name()).isEqualTo(name);
         assertThat(customerDTO.username()).isEqualTo(email);
         assertThat(customerDTO.gender()).isEqualTo(gender);
-        assertThat(customerDTO.roles()).isEqualTo(List.of("Administrador"));
+        assertThat(customerDTO.roles()).isEqualTo(List.of("ROLE_USER"));
 
     }
 }

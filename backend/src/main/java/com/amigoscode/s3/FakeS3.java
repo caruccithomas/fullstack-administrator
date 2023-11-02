@@ -44,9 +44,9 @@ public class FakeS3 implements S3Client {
             byte[] bytes = IOUtils.toByteArray(inputStream);
             FileUtils.writeByteArrayToFile(
                     new File(
-                         buildObjectFullPath(
-                                 putObjectRequest.bucket(),
-                                 putObjectRequest.key())
+                            buildObjectFullPath(
+                                    putObjectRequest.bucket(),
+                                    putObjectRequest.key())
                     ),
                     bytes
             );

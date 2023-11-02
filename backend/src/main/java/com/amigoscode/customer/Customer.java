@@ -89,8 +89,8 @@ public class Customer implements UserDetails {
                     Integer age,
                     Gender gender,
                     String profileImageId) {
-       this(id, name, email, password, age, gender);
-       this.profileImageId = profileImageId;
+        this(id, name, email, password, age, gender);
+        this.profileImageId = profileImageId;
     }
 
     public Customer(String name,
@@ -155,7 +155,7 @@ public class Customer implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("Administrador"));
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

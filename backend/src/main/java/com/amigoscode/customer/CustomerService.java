@@ -116,7 +116,7 @@ public class CustomerService {
         }
 
         if (!changes) {
-           throw new RequestValidationException("no data changes found");
+            throw new RequestValidationException("no data changes found");
         }
 
         customerDao.updateCustomer(customer);
@@ -157,4 +157,3 @@ public class CustomerService {
         return profileImage;
     }
 }
-
