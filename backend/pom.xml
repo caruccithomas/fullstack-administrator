@@ -212,9 +212,9 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.flywaydb</groupId>
+            1    <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>9.20.1</version>
+                <version>10.0.0</version>
                 <configuration>
                     <url>jdbc:postgresql://localhost:5332/customer</url>
                     <user>amigoscode</user>

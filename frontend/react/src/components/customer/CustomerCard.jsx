@@ -23,6 +23,9 @@ import { MdDelete } from 'react-icons/md';
 
 export default function CardWithImage({id, name, email, age, gender, imageNumber, fetchCustomers}) {
     const randomUserGender = gender === "MALE" ? "men" : "women";
+    
+    const today = new Date();
+    const thisYear = today.getFullYear();
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
@@ -62,7 +65,8 @@ export default function CardWithImage({id, name, email, age, gender, imageNumber
                         {name}
                     </Heading>
                     <Text color={'gray.500'}>{email}</Text>
-                    <Text color={'gray.500'}>{gender} / {age} años</Text>
+                    <Text color={'gray.500'}>{gender}</Text>
+                    <Tag color={'gray.500'}>Born in {thisYear - age}</Tag>
                 </Stack>
             </Box>
             <Stack direction={'row'} justify={'center'} spacing={4}>
