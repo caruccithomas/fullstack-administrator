@@ -1,24 +1,22 @@
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 import {
     Alert,
     AlertIcon,
     Box,
     Button,
-    Container,
     Flex,
     FormLabel,
     Image,
     Input,
     Link,
     Stack,
-    Text,
-    useMediaQuery,
+    Text
 } from '@chakra-ui/react';
-import {Formik, Form, useField} from "formik";
 import * as Yup from 'yup';
+import {Formik, Form, useField} from "formik";
 import {useAuth} from "../context/AuthContext.jsx";
 import {errorNotification} from "../../services/notification.js";
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
 import SimpleSlider from '../shared/Slider.jsx';
 
 const MyTextInput = ({label, ...props}) => {

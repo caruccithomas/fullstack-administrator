@@ -14,12 +14,11 @@ import {
     Wrap,
     useColorModeValue, useDisclosure,
 } from '@chakra-ui/react';
-
 import {useRef} from 'react'
 import {customerProfilePictureUrl, deleteCustomer} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import UpdateCustomerDrawer from "./UpdateCustomerDrawer.jsx";
-import { MdDelete } from 'react-icons/md';
+import { Delete as DeleteIcon } from '@mui/icons-material';
 
 export default function CardWithImage({id, name, email, age, gender, imageNumber, fetchCustomers}) {
     const randomUserGender = gender === "MALE" ? "men" : "women";
@@ -93,9 +92,7 @@ export default function CardWithImage({id, name, email, age, gender, imageNumber
                             alignItems={'center'}
                             justifyContent={'center'}
                         >
-                            <MdDelete 
-                                size={18}
-                            />
+                            <DeleteIcon size={18} />
                             <Text>Eliminar</Text>
                         </Wrap>
                     </Button>

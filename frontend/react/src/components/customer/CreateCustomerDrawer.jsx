@@ -10,7 +10,7 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import CreateCustomerForm from "../shared/CreateCustomerForm.jsx";
-import {MdAdd} from 'react-icons/md'
+import { Add } from "@mui/icons-material";
 
 const CreateCustomerDrawer = ({ fetchCustomers }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -18,7 +18,7 @@ const CreateCustomerDrawer = ({ fetchCustomers }) => {
     return (
         <>
             <Button
-                leftIcon={<MdAdd />}
+                leftIcon={<Add />}
                 bgColor={"#fff"}
                 onClick={onOpen}
                 pr={6}

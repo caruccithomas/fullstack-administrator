@@ -12,7 +12,7 @@ import {
     Wrap,
 } from "@chakra-ui/react";
 import UpdateCustomerForm from "./UpdateCustomerForm.jsx";
-import { MdEditNote } from "react-icons/md";
+import { EditNote as EditIcon } from "@mui/icons-material";
 
 const UpdateCustomerDrawer = ({ fetchCustomers, initialValues, customerId }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -29,9 +29,7 @@ const UpdateCustomerDrawer = ({ fetchCustomers, initialValues, customerId }) => 
         >
             <Wrap>
                 <Text>Editar</Text>
-                <MdEditNote
-                    size={18}
-                />
+                <EditIcon size={18} />
             </Wrap>
         </Button>
         <Drawer isOpen={isOpen} onClose={onClose} size={"xl"}>

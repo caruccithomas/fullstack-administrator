@@ -5,9 +5,9 @@ import {
     Button,
     Card
 } from '@chakra-ui/react';
-import SidebarWithHeader from "./components/shared/SideBar.jsx";
+import SidebarWithHeader from "./components/global/Navbars.jsx";
 import { useEffect, useState } from 'react';
-import {MdOutlineSwapVert} from 'react-icons/md'
+import { SwapVert } from '@mui/icons-material'
 import { getCustomers } from "./services/client.js";
 import CardWithImage from "./components/customer/CustomerCard.jsx";
 import CreateCustomerDrawer from "./components/customer/CreateCustomerDrawer.jsx";
@@ -92,7 +92,7 @@ const Customer = () => {
                         fetchCustomers={fetchCustomers}
                     />
                 </Wrap>
-                <Text mt={"1em"} ml={1}>No se encontraron usuarios existentes</Text>
+                <Text>No se encontraron usuarios existentes</Text>
             </SidebarWithHeader>
         )
     }
@@ -112,7 +112,7 @@ const Customer = () => {
                     <Text pr={2} fontWeight={400} fontSize={"15px"}>
                         Ordenar
                     </Text>
-                    <MdOutlineSwapVert />
+                    <SwapVert />
                 </Button>
             </Wrap>
             <div className="card-container">
