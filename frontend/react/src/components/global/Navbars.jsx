@@ -1,4 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { useAuth } from "../context/AuthContext.jsx";
+import { EMPTY_AVATAR } from '../../constants/constants.js';
+import { useLocation } from 'react-router-dom';
+
 import {
     Avatar,
     Box,
@@ -18,9 +22,7 @@ import {
     Image,
     InputGroup,
     InputLeftElement,
-    Input,
-    InputRightElement,
-    VStack
+    Input
 } from '@chakra-ui/react';
 
 import {
@@ -32,10 +34,7 @@ import {
     LightModeOutlined as LightModeIcon,
     Search as SearchIcon
 } from '@mui/icons-material';
-
-import { useAuth } from "../context/AuthContext.jsx";
-import { EMPTY_AVATAR } from '../../constants/constants.js';
-import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 const LinkItems = [
     {name: 'Dashboard', route: '/dashboard', icon: DashboardIcon},
@@ -43,7 +42,7 @@ const LinkItems = [
     {name: 'Calendar', route: '/calendar', icon: CalendarIcon}
 ];
 
-export default function SidebarWithHeader({children}) {
+const SidebarWithHeader = ({children}) => {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const containerRef = useRef();
 
@@ -62,7 +61,7 @@ export default function SidebarWithHeader({children}) {
     
     return (
         <Box minH="100vh" minW={60} ref={containerRef}>
-            <SidebarContent
+            <RenderSidebarContent
                 onClose={onClose}
                 display={{base: 'none', md: 'block'}}
                 bgColor={"#fff"}
@@ -76,13 +75,13 @@ export default function SidebarWithHeader({children}) {
                 isLazy
             >
                 <DrawerContent maxW={60}>
-                    <SidebarContent onClose={onClose} />
+                    <RenderSidebarContent onClose={onClose} />
                 </DrawerContent>
             </Drawer>
 
             {/* page content */}
             <Flex flexDirection={"column"} mx={3}>
-                <MobileNav onOpen={onOpen} />
+                <RenderMobileNav onOpen={onOpen} />
                 <Box pl={{base: 0, md: 60}}>
                     {children}
                 </Box>
@@ -91,7 +90,7 @@ export default function SidebarWithHeader({children}) {
     );
 }
 
-const SidebarContent = ({onClose, ...rest}) => {
+const RenderSidebarContent = ({onClose, ...rest}) => {
 
     return (
         <Box
@@ -113,13 +112,13 @@ const SidebarContent = ({onClose, ...rest}) => {
                 </Flex>
                 <Flex display="flex" alignItems="center" flexDirection="column">
                     {LinkItems.map((link) => (
-                        <NavItem
+                        <RenderNavItem
                             key={link.name}
                             route={link.route}
                             icon={link.icon}
                         >
                             {link.name}
-                        </NavItem>
+                        </RenderNavItem>
                     ))}
                 </Flex>
             </Flex>
@@ -127,7 +126,7 @@ const SidebarContent = ({onClose, ...rest}) => {
     );
 };
 
-const NavItem = ({icon, route, children, ...rest}) => {
+const RenderNavItem = ({icon, route, children, ...rest}) => {
     const location = useLocation();
     const isActive = location.pathname === route;
 
@@ -168,8 +167,41 @@ const NavItem = ({icon, route, children, ...rest}) => {
     );
 };
 
-const MobileNav = ({onOpen, ...rest}) => {
-    const { logOut } = useAuth()
+const RenderMobileNav = ({onOpen, ...rest}) => {
+    const { customer, setCustomerFromToken, logOut } = useAuth();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                await setCustomerFromToken();
+                setLoading(false);
+            } catch (err) {
+                console.error("Error loading user data: ", err);
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return (
+            <Avatar
+                mr={{ base: 2, md: 0 }}
+                ml={2}
+                size={'sm'}
+                src={EMPTY_AVATAR}
+            />
+        );
+    };
+
+    const capitalizeFirstLetter = (name) => {
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    };
+
+    const email = customer.username;
+    const fullname = email.split('@')[0].split('.');
+    const username = fullname.map(capitalizeFirstLetter).join(' ')
 
     return (
         <HStack>
@@ -189,7 +221,11 @@ const MobileNav = ({onOpen, ...rest}) => {
                     icon={<MenuIcon />}
                 />
                 <Menu>                
-                    <Flex pl={{base: 0, md: 60}} flex={1}>
+                    <Flex
+                        flex={1}
+                        pl={{base: 0, md: 60}}
+                        px={3}
+                    >
                         <InputGroup bgColor={"#fff"}>
                             <InputLeftElement
                                 pointerEvents="none"
@@ -221,14 +257,20 @@ const MobileNav = ({onOpen, ...rest}) => {
                             icon={<LightModeIcon />} 
                         />
                         <MenuButton>
-                            <Avatar ml={2} mr={{base: 2, md: 0}} size={'xs'} src={EMPTY_AVATAR} />
+                            <Avatar
+                                name={username}
+                                mr={{base: 2, md: 0}}
+                                ml={2}
+                                size={'sm'}
+                                src={EMPTY_AVATAR}
+                            />
                         </MenuButton>
                     </Flex>
                     <MenuList>
-                        <MenuItem>User details</MenuItem>
-                        <MenuItem>Modify profile</MenuItem>
+                        <MenuItem key={"userDetails"}>User details</MenuItem>
+                        <MenuItem key={"modifyProfile"}>Modify profile</MenuItem>
                         <MenuDivider/>
-                        <MenuItem onClick={logOut}>
+                        <MenuItem key={"logOut"} onClick={logOut}>
                             Logout
                         </MenuItem>
                     </MenuList>
@@ -237,3 +279,5 @@ const MobileNav = ({onOpen, ...rest}) => {
         </HStack>
     );
 };
+
+export default SidebarWithHeader;

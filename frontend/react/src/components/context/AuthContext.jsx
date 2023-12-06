@@ -10,24 +10,35 @@ import jwtDecode from "jwt-decode";
 const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-
     const [customer, setCustomer] = useState(null);
 
-    const setCustomerFromToken = () => {
-        let token = localStorage.getItem("access_token");
-        if (token) {
-            token = jwtDecode(token);
-            setCustomer({
-                username: token.sub,
-                roles: token.scopes
-            })
-        }
-    }
-
     useEffect(() => {
-        setCustomerFromToken()
-    }, [])
+        const fetchData = async () => {
+          try {
+            setCustomerFromToken();
+          } catch (err) {
+            console.error("Error setting customer from token: ", err);
+          }
+        };
+        fetchData();
+    }, []);
 
+    const setCustomerFromToken = () => {
+        const token = localStorage.getItem("access_token");
+
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                setCustomer({
+                    username: decodedToken.sub,
+                    roles: decodedToken.scopes,
+                });
+            } catch (err) {
+                console.error("Error decoding token: ", err);
+                throw err;
+            }
+        }
+    };
 
     const login = async (usernameAndPassword) => {
         return new Promise((resolve, reject) => {

@@ -48,11 +48,11 @@ const Customer = () => {
                     minW='full'
                 >
                     <Spinner
-                        thickness='4px'
+                        thickness='3px'
                         speed='0.65s'
-                        emptyColor='gray.200'
-                        color='blue.500'
-                        size='xl'
+                        emptyColor='#555'
+                        color='purple.500'
+                        size='lg'
                     />
                 </Wrap>
             </SidebarWithHeader>
