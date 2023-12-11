@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext.jsx";
 import { EMPTY_AVATAR } from '../../constants/constants.js';
-import { useLocation } from 'react-router-dom';
 
 import {
     Avatar,
@@ -22,7 +22,10 @@ import {
     Image,
     InputGroup,
     InputLeftElement,
-    Input
+    Input,
+    VStack,
+    Text,
+    Stack
 } from '@chakra-ui/react';
 
 import {
@@ -34,37 +37,38 @@ import {
     LightModeOutlined as LightModeIcon,
     Search as SearchIcon
 } from '@mui/icons-material';
-import { useState } from 'react';
 
 const LinkItems = [
     {name: 'Dashboard', route: '/dashboard', icon: DashboardIcon},
     {name: 'Manage Team', route: '/customers',  icon: GroupIcon},
+    {name: 'Calendar', route: '/calendar', icon: CalendarIcon},
+    {name: 'Dashboard', route: '/dashboard', icon: DashboardIcon},
     {name: 'Calendar', route: '/calendar', icon: CalendarIcon}
 ];
 
 const SidebarWithHeader = ({children}) => {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const containerRef = useRef();
-
-    const handleOutsideClick = (e) => {
-        if (containerRef.current && !containerRef.current.contains(e.target)) {
-            onClose();
-        }
-    }
-
+    
+    // [Click Event] Sidebar Mobile
     useEffect(() => {
         document.addEventListener('click', handleOutsideClick);
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
     }, []);
+
+    const handleOutsideClick = (e) => {
+        if (containerRef.current && !containerRef.current.contains(e.target)) {
+            onClose();
+        }
+    }
     
     return (
-        <Box minH="100vh" minW={60} ref={containerRef}>
+        <Box ref={containerRef}>
             <RenderSidebarContent
                 onClose={onClose}
                 display={{base: 'none', md: 'block'}}
-                bgColor={"#fff"}
             />
             <Drawer
                 autoFocus={false}
@@ -79,7 +83,7 @@ const SidebarWithHeader = ({children}) => {
                 </DrawerContent>
             </Drawer>
 
-            {/* page content */}
+            {/* Mobile Navbar and Page Content */}
             <Flex flexDirection={"column"} mx={3}>
                 <RenderMobileNav onOpen={onOpen} />
                 <Box pl={{base: 0, md: 60}}>
@@ -93,36 +97,46 @@ const SidebarWithHeader = ({children}) => {
 const RenderSidebarContent = ({onClose, ...rest}) => {
 
     return (
-        <Box
-            w={{base: "full", md: 60}}
+        <VStack
+            w={60}
             h="full"
+            maxH="100vh"
             pos="fixed"
+            alignItems="left"
+            bgColor="#fff"
             {...rest}
         >
-
-            {/* sidebar */}
-            <Flex display="flex" flexDirection="column" alignItems="left">
-                <Flex display="flex" alignItems="center" pl={6}>
-                    <Image
-                        maxW="140px"
-                        src='https://i.ibb.co/rZSjZLb/brand.png'
-                        alt='brand'
-                        py={6}
-                    />
+                <Flex flexDir={"column"}>
+                    <Stack>
+                        <Image
+                            maxW="140px"
+                            src='https://i.ibb.co/rZSjZLb/brand.png'
+                            alt='brand'
+                            m={6}
+                        />
+                    </Stack>
+                    <VStack>
+                        {LinkItems.map((link) => (
+                            <RenderNavItem
+                                key={link.name}
+                                route={link.route}
+                                icon={link.icon}
+                            >
+                                {link.name}
+                            </RenderNavItem>
+                        ))}
+                    </VStack>
                 </Flex>
-                <Flex display="flex" alignItems="center" flexDirection="column">
-                    {LinkItems.map((link) => (
-                        <RenderNavItem
-                            key={link.name}
-                            route={link.route}
-                            icon={link.icon}
-                        >
-                            {link.name}
-                        </RenderNavItem>
-                    ))}
+                <Flex flexGrow={1} alignItems={"flex-end"} justifyContent="center" p={6} bgColor={"yellow.200"}>
+                    <Stack bgColor="purple.500">
+                        <Image
+                            maxW='200px'
+                            src='https://i.ibb.co/PTCQScC/github.png'
+                            alt='github'
+                        />
+                    </Stack>
                 </Flex>
-            </Flex>
-        </Box>
+        </VStack>
     );
 };
 
@@ -141,7 +155,8 @@ const RenderNavItem = ({icon, route, children, ...rest}) => {
             _focus={{boxShadow: 'none'}}
             _hover={{
                 textDecoration: 'none',
-                color: 'purple.500'
+                color: 'purple.500',
+                transition: "all 0.5s ease"
             }}
         >
             <Flex
@@ -156,7 +171,7 @@ const RenderNavItem = ({icon, route, children, ...rest}) => {
             >
                 {icon && (
                     <Icon
-                        mr="6"
+                        mr="5"
                         fontSize="lg"
                         as={icon}
                     />
@@ -186,15 +201,11 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
 
     if (loading) {
         return (
-            <Avatar
-                mr={{ base: 2, md: 0 }}
-                ml={2}
-                size={'sm'}
-                src={EMPTY_AVATAR}
-            />
+            <Text>Loading</Text>
         );
     };
 
+    // Format username
     const capitalizeFirstLetter = (name) => {
         return name.charAt(0).toUpperCase() + name.slice(1);
     };
@@ -206,10 +217,9 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
     return (
         <HStack>
             <Flex
-                w={"full"}
+                w="full"
                 height="20"
                 alignItems="center"
-                
                 {...rest}
             >
                 <IconButton
@@ -253,7 +263,7 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
                         <IconButton
                             size={"md"}
                             variant="ghost"
-                            aria-label="settings"
+                            aria-label="theme"
                             icon={<LightModeIcon />} 
                         />
                         <MenuButton>
@@ -267,10 +277,10 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
                         </MenuButton>
                     </Flex>
                     <MenuList>
-                        <MenuItem key={"userDetails"}>User details</MenuItem>
-                        <MenuItem key={"modifyProfile"}>Modify profile</MenuItem>
+                        <MenuItem>User details</MenuItem>
+                        <MenuItem>Modify profile</MenuItem>
                         <MenuDivider/>
-                        <MenuItem key={"logOut"} onClick={logOut}>
+                        <MenuItem onClick={logOut}>
                             Logout
                         </MenuItem>
                     </MenuList>
