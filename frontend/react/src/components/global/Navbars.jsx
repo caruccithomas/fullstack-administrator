@@ -100,42 +100,49 @@ const RenderSidebarContent = ({onClose, ...rest}) => {
         <VStack
             w={60}
             h="full"
-            maxH="100vh"
+            minH="100vh"
             pos="fixed"
             alignItems="left"
+            // Convertir este BG en un LIGHT THEME
+            // (junto al bg #f7f7f7 del index.css)
             bgColor="#fff"
             {...rest}
         >
-                <Flex flexDir={"column"}>
-                    <Stack>
-                        <Image
-                            maxW="140px"
-                            src='https://i.ibb.co/rZSjZLb/brand.png'
-                            alt='brand'
-                            m={6}
-                        />
-                    </Stack>
-                    <VStack>
-                        {LinkItems.map((link) => (
-                            <RenderNavItem
-                                key={link.name}
-                                route={link.route}
-                                icon={link.icon}
-                            >
-                                {link.name}
-                            </RenderNavItem>
-                        ))}
-                    </VStack>
-                </Flex>
-                <Flex flexGrow={1} alignItems={"flex-end"} justifyContent="center" p={6} bgColor={"yellow.200"}>
-                    <Stack bgColor="purple.500">
-                        <Image
-                            maxW='200px'
-                            src='https://i.ibb.co/PTCQScC/github.png'
-                            alt='github'
-                        />
-                    </Stack>
-                </Flex>
+            <Flex flexDir={"column"} flexGrow={1}>
+                <Stack>
+                    <Image
+                        maxW="140px"
+                        src='https://i.ibb.co/rZSjZLb/brand.png'
+                        alt='brand'
+                        m={6}
+                    />
+                </Stack>
+                <Box>
+                    {LinkItems.map((link) => (
+                        <RenderNavItem
+                            key={link.name}
+                            route={link.route}
+                            icon={link.icon}
+                        >
+                            {link.name}
+                        </RenderNavItem>
+                    ))}
+                </Box>
+            </Flex>
+            <Flex 
+                flexDir="column"
+                alignItems="center"
+                p={6} 
+                bgColor={"yellow.200"}
+            >
+                <Stack bgColor="purple.500">
+                    <Image
+                        maxW='200px'
+                        src='https://i.ibb.co/PTCQScC/github.png'
+                        alt='github'
+                    />
+                </Stack>
+            </Flex>
         </VStack>
     );
 };
@@ -148,30 +155,29 @@ const RenderNavItem = ({icon, route, children, ...rest}) => {
         <Link
             href={route}
             w={60}
-            cursor="pointer"
+            cursor='pointer'
             fontWeight={isActive ? 'semibold' : 'normal'}
-            fontSize={"0.938rem"}
+            fontSize='0.938rem'
             color={isActive ? 'purple.500' : '#555'}
             _focus={{boxShadow: 'none'}}
             _hover={{
                 textDecoration: 'none',
                 color: 'purple.500',
-                transition: "all 0.5s ease"
+                transition: 'all 0.5s ease'
             }}
         >
             <Flex
-                // Convertir esto en un LIGHT THEME
-                borderRight={isActive ? '4px' : 0}
+                borderLeft={isActive ? '4px' : 'auto'}
                 borderColor='purple.500'
-                align="center"
+                align='center'
                 p={3}
                 pl={8}
-                role="group"
+                role='group'
                 {...rest}
             >
                 {icon && (
                     <Icon
-                        mr="5"
+                        mr={5}
                         fontSize="lg"
                         as={icon}
                     />
@@ -272,7 +278,6 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
                                 mr={{base: 2, md: 0}}
                                 ml={2}
                                 size={'sm'}
-                                src={EMPTY_AVATAR}
                             />
                         </MenuButton>
                     </Flex>
