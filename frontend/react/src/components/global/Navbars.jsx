@@ -25,7 +25,8 @@ import {
     Input,
     VStack,
     Text,
-    Stack
+    Stack,
+    Heading
 } from '@chakra-ui/react';
 
 import {
@@ -68,7 +69,7 @@ const SidebarWithHeader = ({children}) => {
         <Box ref={containerRef}>
             <RenderSidebarContent
                 onClose={onClose}
-                display={{base: 'none', md: 'block'}}
+                display={{base: "none", md: "flex"}}
             />
             <Drawer
                 autoFocus={false}
@@ -100,7 +101,6 @@ const RenderSidebarContent = ({onClose, ...rest}) => {
         <VStack
             w={60}
             h="full"
-            minH="100vh"
             pos="fixed"
             alignItems="left"
             // Convertir este BG en un LIGHT THEME
@@ -108,16 +108,22 @@ const RenderSidebarContent = ({onClose, ...rest}) => {
             bgColor="#fff"
             {...rest}
         >
-            <Flex flexDir={"column"} flexGrow={1}>
+            <Stack>
+                <Image
+                    maxW="140px"
+                    src='https://i.ibb.co/rZSjZLb/brand.png'
+                    alt='brand'
+                    m={6} mb={4}
+                />
+            </Stack>
+            <Flex
+                h="full"
+                flexDir="column"
+                flexGrow={1}
+                overflowY="scroll"
+                overflowX="hidden"
+            >
                 <Stack>
-                    <Image
-                        maxW="140px"
-                        src='https://i.ibb.co/rZSjZLb/brand.png'
-                        alt='brand'
-                        m={6}
-                    />
-                </Stack>
-                <Box>
                     {LinkItems.map((link) => (
                         <RenderNavItem
                             key={link.name}
@@ -127,22 +133,42 @@ const RenderSidebarContent = ({onClose, ...rest}) => {
                             {link.name}
                         </RenderNavItem>
                     ))}
-                </Box>
-            </Flex>
-            <Flex 
-                flexDir="column"
-                alignItems="center"
-                p={6} 
-                bgColor={"yellow.200"}
-            >
-                <Stack bgColor="purple.500">
-                    <Image
-                        maxW='200px'
-                        src='https://i.ibb.co/PTCQScC/github.png'
-                        alt='github'
-                    />
                 </Stack>
             </Flex>
+            <VStack p={6}>
+                <Stack
+                    w="full"
+                    mb="85px"
+                    align="end"
+                >
+                    <Image
+                        maxW='130px'
+                        mr={4}
+                        h='auto'
+                        src='https://i.ibb.co/FsdtmCh/github.png'
+                        alt='github'
+                        position="fixed"
+                    />
+                </Stack>
+                <Link href='https://github.com/caruccithomas'>
+                    <Box
+                        h="170px"
+                        p={4}
+                        bgColor="purple.500"
+                        shadow="lg"
+                        borderRadius="md"
+                        textColor="#f7f7f7"
+                        cursor="pointer"
+                    >
+                        <Flex h="full" flexDir={"column"} justify={"end"}>
+                            <Heading size={"md"}>
+                                REDIRECT TO GITHUB
+                            </Heading>
+                            <Text> & view all my projects </Text>
+                        </Flex>
+                    </Box>
+                </Link>
+            </VStack>
         </VStack>
     );
 };
@@ -170,8 +196,7 @@ const RenderNavItem = ({icon, route, children, ...rest}) => {
                 borderLeft={isActive ? '4px' : 'auto'}
                 borderColor='purple.500'
                 align='center'
-                p={3}
-                pl={8}
+                p={3} pl={8}
                 role='group'
                 {...rest}
             >
@@ -189,7 +214,7 @@ const RenderNavItem = ({icon, route, children, ...rest}) => {
 };
 
 const RenderMobileNav = ({onOpen, ...rest}) => {
-    const { customer, setCustomerFromToken, logOut } = useAuth();
+    const {customer, setCustomerFromToken, logOut} = useAuth();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -207,7 +232,7 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
 
     if (loading) {
         return (
-            <Text>Loading</Text>
+            <Text></Text>
         );
     };
 
@@ -277,7 +302,7 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
                                 name={username}
                                 mr={{base: 2, md: 0}}
                                 ml={2}
-                                size={'sm'}
+                                size="sm"
                             />
                         </MenuButton>
                     </Flex>
