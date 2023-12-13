@@ -26,7 +26,8 @@ import {
     VStack,
     Text,
     Stack,
-    Heading
+    Heading,
+    useMediaQuery
 } from '@chakra-ui/react';
 
 import {
@@ -120,8 +121,7 @@ const RenderSidebarContent = ({onClose, ...rest}) => {
                 h="full"
                 flexDir="column"
                 flexGrow={1}
-                overflowY="scroll"
-                overflowX="hidden"
+                className='hideScrollbar'
             >
                 <Stack>
                     {LinkItems.map((link) => (
@@ -135,36 +135,46 @@ const RenderSidebarContent = ({onClose, ...rest}) => {
                     ))}
                 </Stack>
             </Flex>
-            <VStack p={6}>
+            <VStack p={7}>
                 <Stack
                     w="full"
-                    mb="85px"
-                    align="end"
+                    mb="82px"
+                    align="center"
                 >
                     <Image
-                        maxW='130px'
+                        maxW='120px'
                         mr={4}
                         h='auto'
-                        src='https://i.ibb.co/FsdtmCh/github.png'
+                        src='https://i.ibb.co/ZgvC0hv/github.png'
                         alt='github'
                         position="fixed"
                     />
                 </Stack>
-                <Link href='https://github.com/caruccithomas'>
+                <Link
+                    href='https://github.com/caruccithomas'
+                    _hover={{textDecoration: 'none'}}
+                >
                     <Box
-                        h="170px"
+                        h="150px"
                         p={4}
-                        bgColor="purple.500"
+                        bgGradient='linear(to-r, #2e6af3, purple.500)'
                         shadow="lg"
                         borderRadius="md"
                         textColor="#f7f7f7"
                         cursor="pointer"
                     >
-                        <Flex h="full" flexDir={"column"} justify={"end"}>
-                            <Heading size={"md"}>
-                                REDIRECT TO GITHUB
+                        <Flex
+                            h="full"
+                            flexDir="column"
+                            justify="end"
+                        >
+                            <Heading
+                                size="md"
+                                fontFamily="'Poppins', sans-serif"
+                            >
+                                Redirect to Github..
                             </Heading>
-                            <Text> & view all my projects </Text>
+                            <Text fontSize="0.8rem"> & view all my projects </Text>
                         </Flex>
                     </Box>
                 </Link>
@@ -261,29 +271,8 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
                     aria-label="menu"
                     icon={<MenuIcon />}
                 />
-                <Menu>                
-                    <Flex
-                        flex={1}
-                        pl={{base: 0, md: 60}}
-                        px={3}
-                    >
-                        <InputGroup bgColor={"#fff"}>
-                            <InputLeftElement
-                                pointerEvents="none"
-                                color="#555"
-                                h={"full"}
-                                children={<SearchIcon />}
-                            />
-                            <Input
-                                size="sm"
-                                type="text"
-                                placeholder="Quick search"
-                                shadow="sm"
-                                border="none"
-                                focusBorderColor="purple.500"
-                            />
-                        </InputGroup>
-                    </Flex>
+                <Menu>
+                    <RenderSearchbar />              
                     <Flex flex={{base: 0, md: 1}} justifyContent={"end"}>
                         <IconButton
                             size={"md"}
@@ -317,6 +306,34 @@ const RenderMobileNav = ({onOpen, ...rest}) => {
                 </Menu>
             </Flex>
         </HStack>
+    );
+};
+
+const RenderSearchbar = () => {
+
+    return (
+        <Flex
+            flex={1}
+            pl={{base: 0, md: 60}}
+            px={3}
+        >
+            <InputGroup bgColor={"#fff"}>
+                <InputLeftElement
+                    pointerEvents="none"
+                    color="#555"
+                    h={"full"}
+                    children={<SearchIcon />}
+                />
+                <Input
+                    size="sm"
+                    type="text"
+                    placeholder="Quick search"
+                    shadow="sm"
+                    border="none"
+                    focusBorderColor="purple.500"
+                />
+            </InputGroup>
+        </Flex>
     );
 };
 
